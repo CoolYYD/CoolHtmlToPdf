@@ -1,0 +1,51 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<configuration>
+  <configSections>
+    <section name="log4net" type="System.Configuration.IgnoreSectionHandler"/>
+  </configSections>
+  <appSettings>
+  </appSettings>
+  <log4net>
+
+    <root>
+      <!--输出日志级别-->
+      <level value="INFO" />
+      <!--文件形式记录日志 -->
+      <appender-ref ref="FileAppender" />
+      <appender-ref ref="RollingFileAppenderBySize" />
+    </root>
+    <!-- 将日志写到文件中 -->
+    <appender name="FileAppender" type="log4net.Appender.FileAppender">
+      <!-- 日志文件存放位置，可以为绝对路径也可以为相对路径-->
+      <file value="logs/html2pdf.log" />
+      <!-- 将日志信息追加到已有的日志文件中-->
+      <appendToFile value="true" />
+      <!-- 最小锁定模式，以允许多个进程可以写入同一个文件 -->
+      <lockingModel type="log4net.Appender.FileAppender+MinimalLock" />
+      <layout type="log4net.Layout.PatternLayout">
+        <conversionPattern value="%date [%thread] %-5level %logger - %message%newline" />
+      </layout>
+    </appender>
+
+    <appender name="RollingFileAppenderBySize" type="log4net.Appender.RollingFileAppender">
+      <!-- 日志文件存放位置，可以为绝对路径也可以为相对路径-->
+      <file value="logs/html2pdf.log" />
+      <!-- 将日志信息追加到已有的日志文件中-->
+      <appendToFile value="true" />
+      <!-- 最小锁定模式，以允许多个进程可以写入同一个文件 -->
+      <lockingModel type="log4net.Appender.FileAppender+MinimalLock" />
+      <!-- 指定按文件大小切分日志文件 -->
+      <rollingStyle value="Size" />
+      <!-- 指定备份日志文件的最大切分数量，如果超过指定切分文件个数，日志将进行覆写 -->
+      <maxSizeRollBackups value="5" />
+      <!-- 指定每个切分日志文件的大小 -->
+      <maximumFileSize value="10MB" />
+      <!-- 指定每个切分文件具有相同的名字 -->
+      <!-- 日志文件进行切分后，每个日志文件的名字分别为：RollingFileAppenderBySize.log, RollingFileAppenderBySize.log.1, ..., RollingFileAppenderBySize.log.5 -->
+      <staticLogFileName value="true" />
+      <layout type="log4net.Layout.PatternLayout">
+        <conversionPattern value="%date [%thread] %-5level %logger - %message%newline" />
+      </layout>
+    </appender>
+  </log4net>
+</configuration>
